@@ -5,8 +5,8 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <div className="flex justify-center">
-                <h1>Hello World</h1>
+            <div className="flex flex-col justify-center items-center">
+                <h1>Hello World!</h1>
                 <Link to="/sign-in">Sign In</Link>
             </div>
         ),
