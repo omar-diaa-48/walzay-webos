@@ -6,7 +6,7 @@ const MainLayout = () => {
     return (
         <React.Fragment>
             <Header />
-            <div className='pt-24' />
+            <div className='pt-28' />
             <Outlet />
         </React.Fragment>
     )
