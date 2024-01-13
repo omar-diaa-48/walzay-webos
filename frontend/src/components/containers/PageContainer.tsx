@@ -4,11 +4,11 @@ import Error from '../layout/Error';
 
 interface Props extends PropsWithChildren {
     title: string;
-    isLoading: boolean;
-    error: Error | null;
+    isLoading?: boolean;
+    error?: Error | null;
 }
 
-const PageContainer: React.FC<Props> = ({ title, isLoading, error, children }) => {
+const PageContainer: React.FC<Props> = ({ title, isLoading = false, error = null, children }) => {
     if (isLoading) {
         return (
             <Loader />

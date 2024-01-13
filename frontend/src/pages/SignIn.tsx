@@ -34,7 +34,7 @@ const SignIn = () => {
                         <TextFieldInput name="username" label="Username" />
                         <TextFieldInput name="password" label="Password" type="password" />
                         <div>
-                            <Button disabled={!formState.isValid} type="submit" />
+                            <Button disabled={!formState.isValid} type="submit">Sign In</Button>
                         </div>
                     </form>
                 </FormProvider>

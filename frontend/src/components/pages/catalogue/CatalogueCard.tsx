@@ -1,12 +1,23 @@
 import React from 'react'
 import Button from '../../handlers/Button'
 import { ICatalogue } from '../../../utilities/interfaces/catalogue.interface'
+import { useAppDispatch } from '../../../store/hooks';
+import { addItemAction } from '../../../store/slices/cart';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     item: ICatalogue;
 }
 
 const CatalogueCard: React.FC<Props> = ({ item }) => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const handleAddItemToCart = () => {
+        dispatch(addItemAction(item))
+        navigate('/checkout')
+    }
+
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
             <img className="w-full" src={item.cardFaceImage} alt="Sunset in the mountains" />
@@ -20,7 +31,7 @@ const CatalogueCard: React.FC<Props> = ({ item }) => {
                     </span>
                 ))}
             </div>
-            <Button>Place Order</Button>
+            <Button onClick={handleAddItemToCart}>Place Order</Button>
         </div>
     )
 }
