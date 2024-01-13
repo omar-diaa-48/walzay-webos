@@ -10,29 +10,33 @@ const OrdersHistory = () => {
 
     return (
         <PageContainer isLoading={isLoading} error={error} title='Orders History'>
-            {data?.orders?.map((item) => (
-                <div key={item.id} className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
-                    <div className="pb-4 md:pb-8 w-full md:w-40">
-                        <img className="w-full hidden md:block" src="https://i.ibb.co/84qQR4p/Rectangle-10.png" alt="dress" />
-                        <img className="w-full md:hidden" src="https://i.ibb.co/L039qbN/Rectangle-10.png" alt="dress" />
-                    </div>
-                    <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
-                        <div className="w-full flex flex-col justify-start items-start space-y-8">
-                            <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">Premium Quaility Dress</h3>
-                            <div className="flex justify-start items-start flex-col space-y-2">
-                                <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-gray-300">Style: </span> Italic Minimal Design</p>
-                                <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-gray-300">Size: </span> Small</p>
-                                <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-gray-300">Color: </span> Light Blue</p>
+            <div className="grid gap-10 grid-cols-3 mx-12">
+                {data?.orders.map((item) => (
+                    <div key={item.id} className="bg-white rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                        <div className="  p-6">
+                            <div className="pb-3 mb-4 border-b border-stone-200 text-xs font-medium flex justify-between text-blue-900">
+                                <span className="flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    {item.creationDate} by {item.customerName}
+                                </span>
+                            </div>
+                            <h3 className="mb-4 font-semibold  text-2xl"><a href="" className="transition-all text-blue-900 hover:text-blue-600">{item.deliveryChannel}</a></h3>
+                            <p className="text-sky-800 text-sm mb-0">
+                                #{item.referenceNo}
+                            </p>
+                            <div>
+                                {item.lineItems.map((item) => (
+                                    <span key={item.lineNumber} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                        <span className="line-through">{item.settlementPrice}</span> {item.netPrice} {item.settlementCurrency}
+                                    </span>
+                                ))}
                             </div>
                         </div>
-                        <div className="flex justify-between space-x-8 items-start w-full">
-                            <p className="text-base dark:text-white xl:text-lg leading-6">$36.00 <span className="text-red-300 line-through"> $45.00</span></p>
-                            <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">01</p>
-                            <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">$36.00</p>
-                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </PageContainer>
     )
 }

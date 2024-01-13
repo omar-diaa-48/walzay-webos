@@ -22,7 +22,7 @@ const PageContainer: React.FC<Props> = ({ title, isLoading = false, error = null
     }
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center my-4'>
             <h1 className='text-center'>{title}</h1>
             {children}
         </div>
