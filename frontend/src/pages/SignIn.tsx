@@ -5,9 +5,11 @@ import { ISignInForm } from "../utilities/interfaces/auth.interface";
 import signInSchema from "../utilities/schemas/sign-in";
 import TextFieldInput from "../components/handlers/TextFieldInput";
 import Button from "../components/handlers/Button";
-import { buildFetchRequest } from "../utilities/helpers";
+import { useAppDispatch } from "../store/hooks";
+import { signInAsyncAction } from "../store/slices/user";
 
 const SignIn = () => {
+    const dispatch = useAppDispatch();
 
     const methods = useForm<ISignInForm>({
         mode: "onChange",
@@ -24,12 +26,7 @@ const SignIn = () => {
     const { handleSubmit, formState } = methods;
 
     const handleUserSubmit = (form: ISignInForm) => {
-
-        buildFetchRequest<IUser>('POST', 'generateToken', form, false)
-            .then((data) => {
-                console.log(data);
-            })
-
+        dispatch(signInAsyncAction(form))
     }
 
     return (
