@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
     const [animateHeader, setAnimateHeader] = useState(false);
-    
+
     useEffect(() => {
         const listener = () => {
             if (window.scrollY > 140) {
                 setAnimateHeader(true);
             } else setAnimateHeader(false);
         };
+
         window.addEventListener("scroll", listener);
 
         return () => {
