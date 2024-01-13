@@ -6,6 +6,7 @@ import OrdersHistory from "../pages/OrdersHistory";
 import Checkout from "../pages/Checkout";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import CheckAuth from "../components/layout/CheckAuth";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "/checkout",
                 element: <Checkout />,
+            },
+            {
+                path: "/profile",
+                element: <Profile />,
             }
         ]
     },
