@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
+    const location = useLocation();
     const [animateHeader, setAnimateHeader] = useState(false);
 
     useEffect(() => {
@@ -38,7 +39,12 @@ export default function Header() {
                             <Link
                                 key={item.title}
                                 to={item.link}
-                                className="px-2 lg:px-6 py-6 text-md border-b-2 border-transparent hover:border-indigo-400 leading-[22px] md:px-3 text-gray-400 hover:text-indigo-500"
+                                className={`
+                                    px-2 lg:px-6 py-6 text-md border-b-2 border-transparent 
+                                    hover:border-indigo-400 hover:text-indigo-500
+                                    leading-[22px] md:px-3 text-gray-400
+                                    ${location.pathname === item.link ? 'border-indigo-400 text-indigo-500' : ''}
+                                `}
                             >
                                 {item.title}
                             </Link>
