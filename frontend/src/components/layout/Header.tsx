@@ -46,7 +46,6 @@ export default function Header() {
                         {[
                             { title: 'Catalogue', link: '/catalogue', auth: true },
                             { title: 'Orders', link: '/orders', auth: true },
-                            { title: 'Profile', link: '/profile', auth: true },
                             { title: 'Sign in', link: '/sign-in', auth: false },
                         ].map((item) => (
                             <Link

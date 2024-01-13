@@ -32,7 +32,16 @@ export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string,
         method,
         body
     })
-        .then((res) => res.json() as T)
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Network error');
+            }
+
+            return res.json() as T
+        })
+        .catch(error => {
+            throw error;
+        });
 }
 
 export const formatRequestDate = () => {

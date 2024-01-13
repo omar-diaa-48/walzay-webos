@@ -7,7 +7,13 @@ interface Props {
 
 const Profile: React.FC<Props> = ({ wallets }) => {
 
-    const { fullName, organization, privileges } = useAppSelector((state: RootState) => state.user)
+    const { isAuthenticated, fullName, organization, privileges } = useAppSelector((state: RootState) => state.user)
+
+    if (!isAuthenticated) {
+        return (
+            <div />
+        )
+    }
 
     return (
         <div className="max-w-sm mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
@@ -44,7 +50,7 @@ const Profile: React.FC<Props> = ({ wallets }) => {
                         Wallets
                         {wallets.map((wallet, index) => (
                             <div key={wallet.id}>
-                                <p>#{index + 1}: {wallet.title}, <span>{wallet.balance} {wallet.currency}</span></p>
+                                <p>#{index + 1}: {wallet.title} <span>{wallet.balance} {wallet.currency}</span></p>
                             </div>
                         ))}
                     </div>

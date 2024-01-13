@@ -10,12 +10,10 @@ const CheckAuth: React.FC<PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         dispatch(checkTokenAsyncAction())
-            .then((data) => {
-                if (data.meta.requestStatus === 'fulfilled') {
-                    setTimeout(() => {
-                        setIsCheckingToken(false);
-                    }, 1000);
-                }
+            .then(() => {
+                setTimeout(() => {
+                    setIsCheckingToken(false);
+                }, 1000);
             })
     }, [])
 
