@@ -7,9 +7,7 @@ const Button: React.FC<Props> = (props) => {
     const { className = "ct-button", ...restProps } = props;
 
     return (
-        <MUIButton {...restProps} className={className}>
-            Sign in
-        </MUIButton>
+        <MUIButton {...restProps} className={className} />
     )
 }
 
