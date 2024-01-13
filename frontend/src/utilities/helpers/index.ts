@@ -1,4 +1,5 @@
 import CryptoJS from "crypto-js";
+import { LOCAL_STORAGE_JWT_KEY } from "../constants";
 
 export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string, data: any = undefined, includeHeaders: boolean = true): Promise<T> {
     const date = formatRequestDate()
@@ -10,10 +11,10 @@ export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string,
     }
 
     if (includeHeaders) {
-        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJNdW5lcm8iLCJleHAiOjE3MDUxODI5NDMsInR5cGUiOiJBdXRob3JpemF0aW9uVG9rZW4iLCJjcmVhdGlvbkRhdGUiOjE3MDUwOTY1NDMsInVzZXJJZCI6MTEzLCJ2ZXJzaW9uIjoxfQ.0fsBbbFFlxeiqYVrEo2zrvOUuLZ7AR5fDu2RDfVzC6U'
+        const token = localStorage.getItem(LOCAL_STORAGE_JWT_KEY) ?? ''
 
         const signature = path + method + date + token;
-        const secret = 'coding_challenge_1'
+        const secret = import.meta.env.VITE_API_SECRET
 
         const signatureHeader = hashRequestHeader(signature, secret)
 
