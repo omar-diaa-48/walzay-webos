@@ -25,8 +25,6 @@ const SignIn = () => {
 
     const handleUserSubmit = (form: ISignInForm) => {
 
-        console.log({ form });
-
         buildFetchRequest<IUser>('POST', 'generateToken', form, false)
             .then((data) => {
                 console.log(data);
