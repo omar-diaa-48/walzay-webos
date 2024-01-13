@@ -76,10 +76,10 @@ export const userSlice = createSlice({
         })
 
         builder.addMatcher(signInAsyncAction.pending.match, (state) => ({ ...state, isLoading: true }))
-        builder.addMatcher(checkTokenAsyncAction.pending.match, (state) => ({ ...state, isLoading: true }))
+        builder.addMatcher(checkTokenAsyncAction.pending.match, (state) => ({ ...state, isAuthenticated: false, isLoading: true }))
 
         builder.addMatcher(signInAsyncAction.rejected.match, (state) => ({ ...state, isLoading: false }))
-        builder.addMatcher(checkTokenAsyncAction.rejected.match, (state) => ({ ...state, isLoading: false }))
+        builder.addMatcher(checkTokenAsyncAction.rejected.match, (state) => ({ ...state, isAuthenticated: false, isLoading: false }))
     },
 })
 
