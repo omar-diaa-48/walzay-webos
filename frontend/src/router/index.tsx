@@ -3,6 +3,7 @@ import SignIn from "../pages/SignIn";
 import MainLayout from "../components/layout/MainLayout";
 import Catalogue from "../pages/Catalogue";
 import OrdersHistory from "../pages/OrdersHistory";
+import Checkout from "../pages/Checkout";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "/orders",
                 element: <OrdersHistory />,
+            },
+            {
+                path: "/checkout",
+                element: <Checkout />,
             }
         ]
     },
