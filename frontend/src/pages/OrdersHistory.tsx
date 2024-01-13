@@ -10,7 +10,7 @@ const OrdersHistory = () => {
 
     return (
         <PageContainer isLoading={isLoading} error={error} title='Orders History'>
-            <div className="grid gap-10 grid-cols-3 mx-12">
+            <div className="grid gap-10 grid-cols-1 md:grid-cols-3 mx-12">
                 {data?.orders.map((item) => (
                     <div key={item.id} className="bg-white rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
                         <div className="  p-6">
