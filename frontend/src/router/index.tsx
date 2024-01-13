@@ -5,10 +5,11 @@ import Catalogue from "../pages/Catalogue";
 import OrdersHistory from "../pages/OrdersHistory";
 import Checkout from "../pages/Checkout";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
+import CheckAuth from "../components/layout/CheckAuth";
 
 const router = createBrowserRouter([
     {
-        element: <ProtectedRoute><MainLayout /></ProtectedRoute>,
+        element: <CheckAuth><ProtectedRoute><MainLayout /></ProtectedRoute></CheckAuth>,
         children: [
             {
                 path: "/",
