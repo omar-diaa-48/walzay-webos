@@ -2,6 +2,7 @@ import { Link, createBrowserRouter } from "react-router-dom";
 import SignIn from "../pages/SignIn";
 import MainLayout from "../components/layout/MainLayout";
 import Catalogue from "../pages/Catalogue";
+import OrdersHistory from "../pages/OrdersHistory";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: "/catalogue",
                 element: <Catalogue />,
+            },
+            {
+                path: "/orders",
+                element: <OrdersHistory />,
             }
         ]
     },

@@ -32,6 +32,7 @@ export default function Header() {
                     <ul className="flex items-center justify-start">
                         {[
                             { title: 'Catalogue', link: '/catalogue' },
+                            { title: 'Orders', link: '/orders' },
                             { title: 'Sign in', link: '/sign-in' },
                         ].map((item) => (
                             <Link
