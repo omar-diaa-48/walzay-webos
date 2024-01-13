@@ -1,9 +1,15 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store';
+import { signOutAction } from '../../store/slices/user';
 
 export default function Header() {
     const location = useLocation();
+    const dispatch = useAppDispatch();
+
+    const { isAuthenticated } = useAppSelector((state: RootState) => state.user)
     const [animateHeader, setAnimateHeader] = useState(false);
 
     useEffect(() => {
@@ -22,6 +28,10 @@ export default function Header() {
         };
     }, []);
 
+    const handleUserSignOut = () => {
+        dispatch(signOutAction())
+    }
+
     return (
         <header className={`w-full backdrop-filter backdrop-blur-lg bg-white/50 fixed z-20 transition-all ease-in-out duration-500 ${animateHeader && "shadow-xl"}`}>
             <div className={`flex max-w-screen-xl ${animateHeader && "py-5"} mx-auto items-center justify-between px-8 transition-all ease-in-out duration-500`}>
@@ -32,26 +42,31 @@ export default function Header() {
                     WebOs
                 </Link>
                 <nav>
-                    <ul className="flex items-center justify-start">
+                    <div className="flex items-center justify-start">
                         {[
-                            { title: 'Catalogue', link: '/catalogue' },
-                            { title: 'Orders', link: '/orders' },
-                            { title: 'Sign in', link: '/sign-in' },
+                            { title: 'Catalogue', link: '/catalogue', auth: true },
+                            { title: 'Orders', link: '/orders', auth: true },
+                            { title: 'Sign in', link: '/sign-in', auth: false },
                         ].map((item) => (
                             <Link
                                 key={item.title}
                                 to={item.link}
                                 className={`
-                                    px-2 lg:px-6 py-6 text-md border-b-2 border-transparent 
-                                    hover:border-indigo-400 hover:text-indigo-500
-                                    leading-[22px] md:px-3 text-gray-400
+                                    ct-header-link
                                     ${location.pathname === item.link ? 'border-indigo-400 text-indigo-500' : ''}
+                                    ${item.auth === isAuthenticated ? '' : 'hidden'}
                                 `}
                             >
                                 {item.title}
                             </Link>
                         ))}
-                    </ul>
+
+                        <button
+                            onClick={handleUserSignOut}
+                            className={`ct-header-link ${isAuthenticated ? '' : 'hidden'}`}>
+                            Sign out
+                        </button>
+                    </div>
                 </nav>
             </div>
         </header>

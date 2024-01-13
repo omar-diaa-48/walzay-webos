@@ -25,7 +25,16 @@ export const signInAsyncAction = createAsyncThunk(
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        signOutAction: (state) => {
+            localStorage.removeItem(LOCAL_STORAGE_JWT_KEY);
+
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(signInAsyncAction.fulfilled, (_, action) => {
             localStorage.setItem(LOCAL_STORAGE_JWT_KEY, action.payload.token)
@@ -42,6 +51,6 @@ export const userSlice = createSlice({
     },
 })
 
-// export const {  } = userSlice.actions
+export const { signOutAction } = userSlice.actions
 
 export default userSlice.reducer
