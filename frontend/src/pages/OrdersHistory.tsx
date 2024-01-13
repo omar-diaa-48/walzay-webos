@@ -28,9 +28,12 @@ const OrdersHistory = () => {
                             </p>
                             <div>
                                 {item.lineItems.map((item) => (
-                                    <span key={item.lineNumber} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                        <span className="line-through">{item.settlementPrice}</span> {item.netPrice} {item.settlementCurrency}
-                                    </span>
+                                    <div className="flex flex-col items-start" key={item.lineNumber}>
+                                        <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                            <span className="line-through">{item.settlementPrice}</span> {item.netPrice} {item.settlementCurrency}
+                                        </p>
+                                        <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold">{item.status}</p>
+                                    </div>
                                 ))}
                             </div>
                         </div>
