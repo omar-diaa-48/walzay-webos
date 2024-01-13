@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { LOCAL_STORAGE_JWT_KEY } from '../../utilities/constants';
 import { buildFetchRequest } from '../../utilities/helpers';
 import { ISignInForm } from '../../utilities/interfaces/auth.interface';
 
@@ -25,6 +26,8 @@ export const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(signInAsyncAction.fulfilled, (_, action) => {
+            localStorage.setItem(LOCAL_STORAGE_JWT_KEY, action.payload.token)
+
             return {
                 fullName: action.payload.fullName,
                 isAuthenticated: true

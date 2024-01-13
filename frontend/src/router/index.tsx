@@ -4,10 +4,11 @@ import MainLayout from "../components/layout/MainLayout";
 import Catalogue from "../pages/Catalogue";
 import OrdersHistory from "../pages/OrdersHistory";
 import Checkout from "../pages/Checkout";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
-        element: <MainLayout />,
+        element: <ProtectedRoute><MainLayout /></ProtectedRoute>,
         children: [
             {
                 path: "/",

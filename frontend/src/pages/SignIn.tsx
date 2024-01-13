@@ -7,8 +7,10 @@ import TextFieldInput from "../components/handlers/TextFieldInput";
 import Button from "../components/handlers/Button";
 import { useAppDispatch } from "../store/hooks";
 import { signInAsyncAction } from "../store/slices/user";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const methods = useForm<ISignInForm>({
@@ -27,6 +29,11 @@ const SignIn = () => {
 
     const handleUserSubmit = (form: ISignInForm) => {
         dispatch(signInAsyncAction(form))
+            .then((data) => {
+                if (data.meta.requestStatus === 'fulfilled') {
+                    navigate('/')
+                }
+            })
     }
 
     return (
