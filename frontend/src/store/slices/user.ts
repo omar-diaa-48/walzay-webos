@@ -4,15 +4,20 @@ import { buildFetchRequest } from '../../utilities/helpers';
 import { ISignInForm } from '../../utilities/interfaces/auth.interface';
 import { ISliceBaseState } from '../../utilities/interfaces/slice-base-state.interface';
 
-export interface UserState extends ISliceBaseState {
+export interface UserState extends ISliceBaseState, Pick<IUser, 'fullName' | 'organization' | 'configurations'> {
     isAuthenticated: boolean;
-    fullName: string;
 }
 
 const initialState: UserState = {
     isAuthenticated: false,
     isLoading: false,
-    fullName: ''
+    fullName: '',
+    organization: '',
+    configurations: {
+        placeOrder: {
+            referenceNo: ''
+        }
+    }
 }
 
 export const signInAsyncAction = createAsyncThunk(
@@ -46,19 +51,27 @@ export const userSlice = createSlice({
         builder.addCase(signInAsyncAction.fulfilled, (_, action) => {
             localStorage.setItem(LOCAL_STORAGE_JWT_KEY, action.payload.token)
 
+            const { fullName, organization, configurations } = action.payload;
+
             return {
-                fullName: action.payload.fullName,
                 isAuthenticated: true,
-                isLoading: false
+                isLoading: false,
+                fullName,
+                organization,
+                configurations
             }
         })
         builder.addCase(checkTokenAsyncAction.fulfilled, (_, action) => {
             localStorage.setItem(LOCAL_STORAGE_JWT_KEY, action.payload.token)
 
+            const { fullName, organization, configurations } = action.payload;
+
             return {
-                fullName: action.payload.fullName,
                 isAuthenticated: true,
-                isLoading: false
+                isLoading: false,
+                fullName,
+                organization,
+                configurations
             }
         })
 
