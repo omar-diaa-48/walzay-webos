@@ -2,14 +2,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE_JWT_KEY } from '../../utilities/constants';
 import { buildFetchRequest } from '../../utilities/helpers';
 import { ISignInForm } from '../../utilities/interfaces/auth.interface';
+import { ISliceBaseState } from '../../utilities/interfaces/slice-base-state.interface';
 
-export interface UserState {
+export interface UserState extends ISliceBaseState {
     isAuthenticated: boolean;
     fullName: string;
 }
 
 const initialState: UserState = {
     isAuthenticated: false,
+    isLoading: false,
     fullName: ''
 }
 
@@ -30,9 +32,13 @@ export const userSlice = createSlice({
 
             return {
                 fullName: action.payload.fullName,
-                isAuthenticated: true
+                isAuthenticated: true,
+                isLoading: false
             }
         })
+
+        builder.addMatcher(signInAsyncAction.pending.match, (state) => ({ ...state, isLoading: true }))
+        builder.addMatcher(signInAsyncAction.rejected.match, (state) => ({ ...state, isLoading: false }))
     },
 })
 
