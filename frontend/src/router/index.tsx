@@ -6,7 +6,8 @@ import OrdersHistory from "../pages/OrdersHistory";
 import Checkout from "../pages/Checkout";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import CheckAuth from "../components/layout/CheckAuth";
-import Profile from "../pages/Profile";
+import Main from "../pages/Main";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
     {
@@ -14,11 +15,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: (
-                    <div className="flex flex-col justify-center items-center">
-                        <h1>Hello World!</h1>
-                    </div>
-                ),
+                element: <Main />,
             },
             {
                 path: "/catalogue",
@@ -31,12 +28,9 @@ const router = createBrowserRouter([
             {
                 path: "/checkout",
                 element: <Checkout />,
-            },
-            {
-                path: "/profile",
-                element: <Profile />,
             }
-        ]
+        ],
+        errorElement: <Error />
     },
     {
         path: "sign-in",
