@@ -1,22 +1,35 @@
 import CryptoJS from "crypto-js";
 
-export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string): Promise<T> {
+export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string, data: any = undefined, includeHeaders: boolean = true): Promise<T> {
     const date = formatRequestDate()
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJNdW5lcm8iLCJleHAiOjE3MDUxODI5NDMsInR5cGUiOiJBdXRob3JpemF0aW9uVG9rZW4iLCJjcmVhdGlvbkRhdGUiOjE3MDUwOTY1NDMsInVzZXJJZCI6MTEzLCJ2ZXJzaW9uIjoxfQ.0fsBbbFFlxeiqYVrEo2zrvOUuLZ7AR5fDu2RDfVzC6U'
 
-    const signature = path + method + date + token;
-    const secret = 'coding_challenge_1'
+    let headers: Record<string, string> = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-GIFTLOV-DATE': date,
+    }
 
-    const signatureHeader = hashRequestHeader(signature, secret)
+    if (includeHeaders) {
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJNdW5lcm8iLCJleHAiOjE3MDUxODI5NDMsInR5cGUiOiJBdXRob3JpemF0aW9uVG9rZW4iLCJjcmVhdGlvbkRhdGUiOjE3MDUwOTY1NDMsInVzZXJJZCI6MTEzLCJ2ZXJzaW9uIjoxfQ.0fsBbbFFlxeiqYVrEo2zrvOUuLZ7AR5fDu2RDfVzC6U'
 
-    return fetch(`https://staging.giftlov.com/api/Base/${path}`, {
-        headers: {
-            'X-GIFTLOV-DATE': date,
-            'Accept': 'application/json',
+        const signature = path + method + date + token;
+        const secret = 'coding_challenge_1'
+
+        const signatureHeader = hashRequestHeader(signature, secret)
+
+        headers = {
+            ...headers,
             'signature': signatureHeader,
             'Authorization': token
-        },
-        method
+        }
+    }
+
+    const body = data ? JSON.stringify(data) : undefined
+
+    return fetch(`https://staging.giftlov.com/api/Base/${path}`, {
+        headers,
+        method,
+        body
     })
         .then((res) => res.json() as T)
 }
