@@ -9,6 +9,7 @@ import { IPlaceOrder } from "../utilities/interfaces/place-order.interface"
 import { yupResolver } from "@hookform/resolvers/yup"
 import placeOrderSchema from "../utilities/schemas/place-order"
 import { buildFetchRequest } from "../utilities/helpers"
+import DropDown from "../components/handlers/DropDown"
 
 const Checkout = () => {
     const { item } = useAppSelector((state: RootState) => state.cart)
@@ -22,7 +23,8 @@ const Checkout = () => {
         defaultValues: {
             firstName: "",
             lastName: "",
-            customerName: ""
+            customerName: "",
+            deliveryChannel: 'api'
         }
     })
 
@@ -35,7 +37,6 @@ const Checkout = () => {
 
         const payload = {
             ...data,
-            deliveryChannel: 'api',
             referenceNo,
             lineItems: [
                 { cartItemId: item?.id, value: 50 }
@@ -63,6 +64,7 @@ const Checkout = () => {
                     <TextFieldInput name="customerName" label="Customer name" />
                     <TextFieldInput name="firstName" label="First name" />
                     <TextFieldInput name="lastName" label="Last name" />
+                    <DropDown name="deliveryChannel" label="Delivery Channel" options={['api', 'email', 'sms']} />
                 </FormProvider>
             </div>
 

@@ -33,8 +33,7 @@ const TextFieldInput: React.FC<Props> = (props) => {
                     autoComplete='off'
                     {...field}
                 />
-            )
-            }
+            )}
         />
     )
 }
