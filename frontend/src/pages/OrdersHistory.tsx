@@ -17,12 +17,12 @@ const OrdersHistory = () => {
                             <div className="pb-3 mb-4 border-b border-stone-200 text-xs font-medium flex justify-between text-blue-900">
                                 <span className="flex items-center gap-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
                                     {item.creationDate} by {item.customerName}
                                 </span>
                             </div>
-                            <h3 className="mb-4 font-semibold  text-2xl"><a href="" className="transition-all text-blue-900 hover:text-blue-600">{item.deliveryChannel}</a></h3>
+                            <h3 className="mb-4 font-semibold  text-2xl"><span className="transition-all text-blue-900 hover:text-blue-600">{item.deliveryChannel}</span></h3>
                             <p className="text-sky-800 text-sm mb-0">
                                 #{item.referenceNo}
                             </p>
