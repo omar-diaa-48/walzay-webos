@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import { LOCAL_STORAGE_JWT_KEY } from "../constants";
 
-export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string, data: any = undefined, includeHeaders: boolean = true): Promise<T> {
+export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string, data: any = undefined, params: any = undefined, includeHeaders: boolean = true): Promise<T> {
     const date = formatRequestDate()
 
     let headers: Record<string, string> = {
@@ -13,8 +13,15 @@ export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string,
     if (includeHeaders) {
         const token = localStorage.getItem(LOCAL_STORAGE_JWT_KEY) ?? ''
 
-        const signature = path + method + date + token;
-        const secret = import.meta.env.VITE_API_SECRET
+        let signature = path + method;
+
+        if (params) {
+            signature += params;
+        }
+
+        signature += date + token;
+
+        const secret = import.meta.env.VITE_API_SECRET;
 
         const signatureHeader = hashRequestHeader(signature, secret)
 
@@ -63,3 +70,7 @@ export const hashRequestHeader = (inputValue: string, secret: string) => {
 
     return hashedValue;
 };
+
+const getFieldValue = (field: any) => {
+
+}

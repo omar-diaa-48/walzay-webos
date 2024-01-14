@@ -31,14 +31,20 @@ const Checkout = () => {
     const handlePlaceOrder = () => {
         const data = getValues();
 
+        const referenceNo = Date.now();
+
         const payload = {
             ...data,
+            deliveryChannel: 'api',
+            referenceNo,
             lineItems: [
-                { cartItemId: item?.id, value: item?.toValue }
+                { cartItemId: item?.id, value: 50 }
             ]
         }
 
-        buildFetchRequest<{ id: string, referenceNo: string }>('POST', 'placeOrder', payload)
+        const params = [data.customerName, data.firstName, data.lastName, 'api', referenceNo, item?.id, 50].sort().join('')
+
+        buildFetchRequest<{ id: string, referenceNo: string }>('POST', 'placeOrder', payload, params)
             .then((data) => {
                 console.log({ data });
             })

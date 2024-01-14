@@ -24,7 +24,7 @@ const initialState: UserState = {
 export const signInAsyncAction = createAsyncThunk(
     'user/signIn',
     async (form: ISignInForm) => {
-        return buildFetchRequest<IUser>('POST', 'generateToken', form, false)
+        return buildFetchRequest<IUser>('POST', 'generateToken', form, undefined, false)
     }
 )
 
