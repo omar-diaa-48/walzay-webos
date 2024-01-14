@@ -8,6 +8,7 @@ import { useAppSelector } from "../store/hooks"
 import { IPlaceOrder } from "../utilities/interfaces/place-order.interface"
 import { yupResolver } from "@hookform/resolvers/yup"
 import placeOrderSchema from "../utilities/schemas/place-order"
+import { buildFetchRequest } from "../utilities/helpers"
 
 const Checkout = () => {
     const { item } = useAppSelector((state: RootState) => state.cart)
@@ -24,6 +25,24 @@ const Checkout = () => {
             customerName: ""
         }
     })
+
+    const { getValues } = methods;
+
+    const handlePlaceOrder = () => {
+        const data = getValues();
+
+        const payload = {
+            ...data,
+            lineItems: [
+                { cartItemId: item?.id, value: item?.toValue }
+            ]
+        }
+
+        buildFetchRequest<{ id: string, referenceNo: string }>('POST', 'placeOrder', payload)
+            .then((data) => {
+                console.log({ data });
+            })
+    }
 
     if (!item) {
         return (
@@ -42,7 +61,7 @@ const Checkout = () => {
             </div>
 
             <div className="flex justify-center my-4">
-                <CatalogueCard item={item} />
+                <CatalogueCard item={item} handleClicked={handlePlaceOrder} />
             </div>
         </PageContainer>
     )
