@@ -1,15 +1,16 @@
 import React from 'react'
 import { Controller, useFormContext } from "react-hook-form";
-import TextField from "@mui/material/TextField";
+import TextField, { OutlinedTextFieldProps } from "@mui/material/TextField";
 
-interface Props {
+interface Props extends OutlinedTextFieldProps {
     name: string;
     label: string;
     type?: 'text' | 'password';
+    variant: 'outlined';
 }
 
 const TextFieldInput: React.FC<Props> = (props) => {
-    const { name, label, type = 'text' } = props;
+    const { name, label, variant = 'outlined', type = 'text' } = props;
 
     const methods = useFormContext();
     const { control } = methods;
@@ -27,9 +28,9 @@ const TextFieldInput: React.FC<Props> = (props) => {
                     size="small"
                     error={!!error}
                     fullWidth
-                    variant="outlined"
                     label={label}
                     type={type}
+                    variant={variant}
                     autoComplete='off'
                     {...field}
                 />

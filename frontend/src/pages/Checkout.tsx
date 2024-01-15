@@ -63,6 +63,9 @@ const Checkout = () => {
             .then((data) => {
                 console.log({ data });
             })
+            .catch((error): any => {
+                toast.error(error.message)
+            })
     }
 
     if (!item) {
@@ -73,14 +76,14 @@ const Checkout = () => {
 
     return (
         <PageContainer title="Checkout">
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mx-8'>
                 <FormProvider {...methods} >
-                    <TextFieldInput name="customerName" label="Customer name" />
-                    <TextFieldInput name="firstName" label="First name" />
-                    <TextFieldInput name="lastName" label="Last name" />
+                    <TextFieldInput name="customerName" label="Customer name" variant="outlined" />
+                    <TextFieldInput name="firstName" label="First name" variant="outlined" />
+                    <TextFieldInput name="lastName" label="Last name" variant="outlined" />
                     <DropDown name="deliveryChannel" label="Delivery Channel" options={['api', 'email', 'sms']} />
-                    <TextFieldInput name="emailAddress" label="Email Address" />
-                    <TextFieldInput name="smsMobileNumber" label="Sms Mobile Number" />
+                    <TextFieldInput name="emailAddress" label="Email Address" variant="outlined" />
+                    <TextFieldInput name="smsMobileNumber" label="Sms Mobile Number" variant="outlined" />
                 </FormProvider>
             </div>
 

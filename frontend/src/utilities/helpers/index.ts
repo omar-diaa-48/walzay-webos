@@ -34,21 +34,24 @@ export async function buildFetchRequest<T>(method: 'GET' | 'POST', path: string,
 
     const body = data ? JSON.stringify(data) : undefined
 
-    return fetch(`https://staging.giftlov.com/api/Base/${path}`, {
-        headers,
-        method,
-        body
-    })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error('Network error');
-            }
-
-            return res.json() as T
+    try {
+        const res = await fetch(`https://staging.giftlov.com/api/Base/${path}`, {
+            headers,
+            method,
+            body
         })
-        .catch(error => {
-            throw error;
-        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.message);
+        }
+
+        return data;
+
+    } catch (error) {
+        throw error;
+    }
 }
 
 export const formatRequestDate = () => {
