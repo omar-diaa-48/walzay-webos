@@ -57,7 +57,7 @@ const Checkout = () => {
             ]
         }
 
-        const params = [data.customerName, data.firstName, data.lastName, 'api', referenceNo, item?.id, value].sort().join('')
+        const params = [data.customerName, data.firstName, data.lastName, data.emailAddress, data.smsMobileNumber, 'api', referenceNo, item?.id, value].sort().join('')
 
         buildFetchRequest<{ id: string, referenceNo: string }>('POST', 'placeOrder', payload, params)
             .then((data) => {

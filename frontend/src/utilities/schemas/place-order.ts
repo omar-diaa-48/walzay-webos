@@ -16,7 +16,7 @@ const schema = yup.object().shape({
         .when('deliveryChannel', {
             is: 'sms',
             then(schema) {
-                return schema.required().matches(/^\+\d{ 12}$/, { message: 'Invalid sms mobile number' });
+                return schema.required().matches(/^\+\d{12}$/, { message: 'Invalid sms mobile number' });
             },
         }),
 });
