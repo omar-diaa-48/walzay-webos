@@ -32,7 +32,7 @@ const OrdersHistory = () => {
                                         <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                                             <span className="line-through">{item.settlementPrice}</span> {item.netPrice} {item.settlementCurrency}
                                         </p>
-                                        <p className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold">{item.status}</p>
+                                        <p className={`inline-block bg-gray-200 ${item.status === 'success' ? 'text-green-500' : ''} rounded-full px-3 py-1 text-sm font-semibold`}>{item.status}</p>
                                     </div>
                                 ))}
                             </div>

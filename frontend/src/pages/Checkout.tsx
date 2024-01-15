@@ -24,13 +24,19 @@ const Checkout = () => {
             firstName: "",
             lastName: "",
             customerName: "",
-            deliveryChannel: 'api'
+            emailAddress: "",
+            smsMobileNumber: "",
+            deliveryChannel: 'api',
         }
     })
 
-    const { getValues } = methods;
+    const { getValues, formState } = methods;
 
     const handlePlaceOrder = () => {
+        if (!formState.isValid) {
+
+        }
+
         const data = getValues();
 
         const referenceNo = Date.now();
@@ -65,6 +71,8 @@ const Checkout = () => {
                     <TextFieldInput name="firstName" label="First name" />
                     <TextFieldInput name="lastName" label="Last name" />
                     <DropDown name="deliveryChannel" label="Delivery Channel" options={['api', 'email', 'sms']} />
+                    <TextFieldInput name="emailAddress" label="Email Address" />
+                    <TextFieldInput name="smsMobileNumber" label="Sms Mobile Number" />
                 </FormProvider>
             </div>
 
