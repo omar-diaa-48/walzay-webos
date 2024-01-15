@@ -62,8 +62,8 @@ const SignIn = () => {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <FormProvider {...methods} >
                         <form className="space-y-6" onSubmit={handleSubmit(handleUserSubmit)}>
-                            <TextFieldInput name="username" label="Username" />
-                            <TextFieldInput name="password" label="Password" type="password" />
+                            <TextFieldInput name="username" label="Username" variant="outlined" />
+                            <TextFieldInput name="password" label="Password" type="password" variant="outlined" />
                             <div>
                                 <Button disabled={!formState.isValid || isAuthenticated} type="submit">Sign In</Button>
                             </div>
