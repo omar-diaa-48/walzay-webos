@@ -4,10 +4,11 @@ import { ICatalogue } from '../../../utilities/interfaces/catalogue.interface'
 
 interface Props {
     item: ICatalogue;
+    isDisabled?: boolean;
     handleClicked: (item: ICatalogue) => void;
 }
 
-const CatalogueCard: React.FC<Props> = ({ item, handleClicked }) => {
+const CatalogueCard: React.FC<Props> = ({ item, handleClicked, isDisabled = false }) => {
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
             <img className="w-full" src={item.cardFaceImage} alt="Sunset in the mountains" />
@@ -21,7 +22,7 @@ const CatalogueCard: React.FC<Props> = ({ item, handleClicked }) => {
                     </span>
                 ))}
             </div>
-            <Button onClick={() => handleClicked(item)}>Place Order</Button>
+            <Button disabled={isDisabled} onClick={() => handleClicked(item)}>Place Order</Button>
         </div>
     )
 }

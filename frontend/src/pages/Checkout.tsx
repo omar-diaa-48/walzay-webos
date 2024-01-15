@@ -11,9 +11,14 @@ import placeOrderSchema from "../utilities/schemas/place-order"
 import { buildFetchRequest } from "../utilities/helpers"
 import DropDown from "../components/handlers/DropDown"
 import { toast } from "react-toastify"
+import { IPlaceOrderResponse } from "../utilities/interfaces/place-order-res.interface"
+import { useState } from "react"
+import QRCode from "react-qr-code"
 
 const Checkout = () => {
     const { item } = useAppSelector((state: RootState) => state.cart)
+
+    const [claimUrl, setClaimUrl] = useState<string>("");
 
     const methods = useForm<IPlaceOrder>({
         mode: "onChange",
@@ -59,9 +64,11 @@ const Checkout = () => {
 
         const params = [data.customerName, data.firstName, data.lastName, data.emailAddress, data.smsMobileNumber, 'api', referenceNo, item?.id, value].sort().join('')
 
-        buildFetchRequest<{ id: string, referenceNo: string }>('POST', 'placeOrder', payload, params)
+        buildFetchRequest<IPlaceOrderResponse>('POST', 'placeOrder', payload, params)
             .then((data) => {
                 console.log({ data });
+
+                setClaimUrl(data.claimURL)
             })
             .catch((error): any => {
                 toast.error(error.message)
@@ -77,14 +84,21 @@ const Checkout = () => {
     return (
         <PageContainer title="Checkout">
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mx-8'>
-                <FormProvider {...methods} >
-                    <TextFieldInput name="customerName" label="Customer name" variant="outlined" />
-                    <TextFieldInput name="firstName" label="First name" variant="outlined" />
-                    <TextFieldInput name="lastName" label="Last name" variant="outlined" />
-                    <DropDown name="deliveryChannel" label="Delivery Channel" options={['api', 'email', 'sms']} />
-                    <TextFieldInput name="emailAddress" label="Email Address" variant="outlined" />
-                    <TextFieldInput name="smsMobileNumber" label="Sms Mobile Number" variant="outlined" />
-                </FormProvider>
+                {
+                    claimUrl ? (
+                        <QRCode value={claimUrl} />
+                    ) : (
+
+                        <FormProvider {...methods} >
+                            <TextFieldInput name="customerName" label="Customer name" variant="outlined" />
+                            <TextFieldInput name="firstName" label="First name" variant="outlined" />
+                            <TextFieldInput name="lastName" label="Last name" variant="outlined" />
+                            <DropDown name="deliveryChannel" label="Delivery Channel" options={['api', 'email', 'sms']} />
+                            <TextFieldInput name="emailAddress" label="Email Address" variant="outlined" />
+                            <TextFieldInput name="smsMobileNumber" label="Sms Mobile Number" variant="outlined" />
+                        </FormProvider>
+                    )
+                }
             </div>
 
             <div className="flex justify-center my-4">
