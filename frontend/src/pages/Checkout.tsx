@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import placeOrderSchema from "../utilities/schemas/place-order"
 import { buildFetchRequest } from "../utilities/helpers"
 import DropDown from "../components/handlers/DropDown"
+import { toast } from "react-toastify"
 
 const Checkout = () => {
     const { item } = useAppSelector((state: RootState) => state.cart)
@@ -30,12 +31,19 @@ const Checkout = () => {
         }
     })
 
-    const { getValues, formState } = methods;
+    const { getValues, formState, trigger, clearErrors } = methods;
 
     const handlePlaceOrder = () => {
         if (!formState.isValid) {
+            trigger()
+                .then(() => {
+                    toast.error('Error, Some of the input data is not valid!')
+                })
 
+            return;
         }
+
+        clearErrors()
 
         const data = getValues();
 
