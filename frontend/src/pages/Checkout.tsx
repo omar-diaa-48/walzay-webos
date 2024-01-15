@@ -46,18 +46,18 @@ const Checkout = () => {
         clearErrors()
 
         const data = getValues();
-
         const referenceNo = Date.now();
+        const value = 50;
 
         const payload = {
             ...data,
             referenceNo,
             lineItems: [
-                { cartItemId: item?.id, value: 50 }
+                { cartItemId: item?.id, value }
             ]
         }
 
-        const params = [data.customerName, data.firstName, data.lastName, 'api', referenceNo, item?.id, 50].sort().join('')
+        const params = [data.customerName, data.firstName, data.lastName, 'api', referenceNo, item?.id, value].sort().join('')
 
         buildFetchRequest<{ id: string, referenceNo: string }>('POST', 'placeOrder', payload, params)
             .then((data) => {
